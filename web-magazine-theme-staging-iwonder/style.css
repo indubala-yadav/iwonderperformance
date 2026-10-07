@@ -1,0 +1,479 @@
+/*
+Theme Name: Web-Magazine-Theme
+Theme URI: https://zool.in/
+Author: Your Name
+Author URI: https://zool.in/
+Description: A custom WordPress theme for a magazine-style website.
+Version: 1.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: Web-Magazine
+*/
+
+/* google font url for all languages start here */
+/* 
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada:wght@100..900&display=swap'); */
+
+/* google font url for all languages end here */
+
+/* root level global veriables start here */
+
+
+
+@font-face {
+  font-family: "Font Awesome 6 Free";
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url("assets/fontawesome/webfonts/fa-solid-900.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Font Awesome 6 Brands";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fontawesome/webfonts/fa-brands-400.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Font Awesome 6 Free";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fontawesome/webfonts/fa-regular-400.woff2") format("woff2");
+}
+
+:root {
+	
+	
+	font-size:16px;
+	--blumine: #1D4C7C;
+	--bhite: #ffffff;
+	--bs-primary: #BB5927 !important;
+	--clamp-64-128: clamp(4rem, 3.0769rem + 4.1026vw, 8rem);
+	--bs-dark-rgb: 33, 33, 33;
+	--bs-link-color-rgb: unset;
+	--bs-link-hover-color-rgb: unset;
+	--bs-nav-link-color: var(--bs-primary);
+
+	--brand-bg: #D8E9F3;
+	--brand-color: #1E4D7C;
+	--clamp-136-180: clamp(8.5rem, 7.8654rem + 2.8205vw, 11.25rem);
+	--clamp-32-48: clamp(2rem, 1.7692rem + 1.0256vw, 3rem);
+	--clamp-16-48: clamp(1rem, 0.5385rem + 2.0513vw, 3rem);
+	--theme-top-ct-height: 15.625rem;
+	
+/* 	--theme-clr: #BB5927; */
+	--theme-clr-light: color-mix(in srgb, var(--theme-clr-rgb), white 65%);
+	--theme-clr-dark: color-mix(in srgb, var(--theme-clr-rgb), black 40%);
+	--header-bg: var(--theme-clr);
+	--theme-line-separator-highlight: var(--theme-clr-light);
+	--article-ct-bg: var(--theme-clr);
+	--title-motif-color: var(--theme-clr);
+	--category-bg: color-mix(in srgb, var(--theme-clr), white 70%);
+	--category-color: color-mix(in srgb, var(--theme-clr), black 0%);
+	--bs-accordion-active-color: var(--theme-clr);
+	--theme-section-bg: color-mix(in srgb, var(--theme-clr), white 80%);
+	 --clamp-48-96: clamp(3rem, 1.7522rem + 3.5398vw, 6rem);
+}
+body h4,
+body h2 {
+	font-weight: 600;
+	line-height: 150%;
+	letter-spacing: -1px;
+	margin-bottom: unset;
+}
+/* root level global veriables end here */
+
+article.card.cat-experiences .badge{
+	background-color:var(--cat-experiences-light);
+	color:var(--cat-experiences);
+}
+article.card.cat-perspective .badge{
+	background-color:var(--cat-perspective-light);
+	color:var(--cat-perspective);
+}
+article.card.cat-questions .badge{
+	background-color:var(--cat-questions-light);
+	color:var(--cat-questions);
+}
+article.card.cat-reviews .badge{
+	background-color:var(--cat-reviews-light);
+	color:var(--cat-reviews);
+}
+article.card.cat-readers-voice .badge{
+	background-color:var(--cat-readers-voice-light);
+	color:var(--cat-readers-voice);
+}
+article.card.cat-activity-sheet .badge{
+	background-color:var(--cat-activity-sheet-light);
+	color:var(--cat-activity-sheet);
+}
+article.card.cat-teachers-guide .badge{
+	background-color:var(--cat-teachers-guide-light);
+	color:var(--cat-teachers-guide);
+}
+article.card.cat-classroom .badge{
+	background-color:var(--cat-classroom-light);
+	color:var(--cat-classroom);
+}
+article.card.cat-staffroom .badge{
+	background-color:var(--cat-staffroom-light);
+	color:var(--cat-staffroom);
+}
+article.card.cat-worksheets .badge{
+	background-color:var(--cat-worksheets-light);
+	color:var(--cat-worksheets);
+}
+/* html tag level styles strat here */
+
+html[lang="kn-in"] *,
+html[lang="hi-IN"] * {
+	letter-spacing: normal !important;
+}
+
+html[lang="hi-IN"] article.card .badge span{
+	line-height:normal;
+}
+
+html[lang="hi-IN"] {
+	font-size: 18px;
+}
+
+html[lang="kn-in"] header a {
+	font-family: "Noto Sans Kannada", sans-serif;
+	line-height: 1;
+	vertical-align: text-bottom;
+}
+html[lang="en-US"] body {
+	font-family: "Noto Sans", sans-serif;
+}
+
+html[lang="hi-IN"] body {
+	font-family: "Noto Sans Devanagari", sans-serif;
+	letter-spacing: normal !important;
+}
+
+html[lang="kn-in"] body {
+	font-family: "Noto Sans Kannada", sans-serif;
+	letter-spacing: normal !important;
+	font-optical-sizing: auto;
+	vertical-align: text-bottom;
+}
+/* html tag level styles end here */
+
+/* body level style start here */
+
+body {
+	font-family:'Noto Sans','Noto Sans Devanagari','Noto Sans Kannada',sans-serif;
+	font-weight: 400;
+	font-style: normal;
+	scroll-behavior: smooth;
+	
+
+}
+
+body:not(body.home) {
+/* 	--clamp-156-200: clamp(9.75rem, 9.1154rem + 2.8205vw, 12.5rem);
+	background: linear-gradient(to bottom, var(--theme-color) 0px, var(--theme-color) var(--clamp-156-200), white var(--clamp-156-200), white 100%);
+	padding-top: var(--clamp-136-180);
+	padding-top: 11.25rem;
+	background: linear-gradient(180deg, var(--theme-color) 0%, var(--theme-color) 356px, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 100%); */
+}
+.i-wonder-theme-top-ct{
+	display:none !important;
+}
+@media (max-width: 767px) {
+	body:not(body.home) {
+		background: linear-gradient(180deg, var(--theme-color) 0%, var(--theme-color) 2.6%, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 100%);
+	}
+
+}
+
+@media (max-width: 576px) {
+	body:not(body.home) {
+		padding-top: 5rem;
+	}
+}
+
+
+
+
+
+/* html[lang="kn-in"] body .calltoaction-bar a {
+	font-size: 0.8125rem;
+} */
+
+/* body level style end here */
+
+/* fontsizes class global level start here */
+
+.fs-16 {
+	font-size: 1rem !important;
+}
+
+.fs-20 {
+	font-size: 1.25rem;
+}
+
+.fs-24 {
+	font-size: 1.5rem;
+}
+
+.fs-32 {
+	font-size: 2rem;
+}
+
+.fs-40 {
+	font-size: 2.5rem;
+}
+
+.fs-48 {
+	font-size: 3rem;
+}
+
+.fs-18 {
+	font-size: 1.125rem
+}
+
+.fs-16-32 {
+	font-size: clamp(1rem, 1.905vw + 0.571rem, 2rem);
+}
+
+.fs-24-40 {
+	font-size: clamp(1.5rem, 1.2692rem + 1.0256vw, 2.5rem);
+}
+
+.fs-20-40 {
+	font-size: clamp(1.25rem, 2.381vw + 0.714rem, 2.5rem)
+}
+
+.fs-32-40 {
+	font-size: clamp(2rem, 2.381vw + 0.714rem, 2.5rem)
+}
+
+.fs-24-48 {
+	font-size: clamp(1.5rem, 2.857vw + 0.857rem, 3rem);
+}
+
+.fs-24-32 {
+	font-size: clamp(1.5rem, 1.2905rem + 0.5913vw, 2rem);
+}
+
+.fs-20-28 {
+	font-size: clamp(1.25rem, 1.1346rem + 0.5128vw, 1.75rem) !important;
+}
+
+.fs-20-24 {
+	font-size: clamp(1.25rem, 1.1452rem + 0.2956vw, 1.5rem) !important;
+}
+
+.fs-16-24 {
+	font-size: clamp(1rem, 0.8846rem + 0.5128vw, 1.5rem);
+}
+
+.fs-16-20 {
+	font-size: clamp(1rem, 0.8846rem + 0.5128vw, 1.25rem);
+}
+
+.fs-14 {
+	font-size: 0.875rem;
+	line-height: 145%;
+}
+
+/* fontsizes class global level end here */
+
+/* categories class start  here*/
+
+.cat-classroom-bg {
+	background-color: var(--cat-classroom-light);
+	color: var(--cat-classroom-dark);
+}
+
+.cat-feature-bg {
+	background-color: var(--cat-feature-light);
+	color: var(--cat-feature-dark);
+}
+
+.cat-review-bg {
+	background-color: var(--cat-review-light);
+	color: var(--cat-review-dark);
+}
+
+.cat-thejoyofmathematics-bg {
+	background-color: var(--cat-thejoyofmathematics-light);
+	color: var(--cat-thejoyofmathematics-dark);
+}
+
+.cat-pullout-bg {
+	background-color: var(--cat-pullout-light);
+	color: var(--cat-pullout-dark);
+}
+
+.cat-posters-bg {
+	background-color: var(--cat-posters-light);
+	color: var(--cat-posters-dark);
+}
+
+.cat-tearouts-bg {
+	background-color: var(--cat-tearouts-light);
+	color: var(--cat-tearouts-dark);
+}
+
+.cat-worksheets-bg {
+	background-color: var(--cat-worksheets-light);
+	color: var(--cat-worksheets-dark);
+}
+
+.brand-bg {
+	background-color: var(--brand-bg);
+	color: var(--brand-color);
+}
+
+.bg-lightwhite {
+	background: rgba(255, 255, 255, 0.05);
+}
+.bg-primary{
+	background-color:var(--bs-primary) !important;
+}
+.hide,
+.fm-uncategorized {
+	display: none !important;
+}
+
+.theme-section-bg {
+	background: var(--theme-section-bg);
+}
+
+/* categories class end here */
+
+
+
+
+/* font weight class start here */
+.text-bold {
+	font-semiweight: 600;
+}
+
+/* font weight class end here */
+
+/* search related styles we need to check start here*/
+
+.search-btn {
+	width: fit-content;
+	border: 1px solid var(--theme-color);
+	border-radius: 0;
+	border-top-right-radius: 0.25rem;
+	border-bottom-right-radius: 0.25rem;
+	background: var(--theme-clr);
+	color: #ffffff;
+}
+
+.form-control:focus:not(.search-popup .form-control) {
+	border: 1px solid #212121 !important;
+	box-shadow: none;
+}
+
+.search-popup .form-control:focus {
+	box-shadow: unset;
+
+}
+
+.black-charcoal a {
+	color: #212121;
+}
+
+/* search related styles we need to check end here*/
+
+/* hiding social icons styles start here */
+
+.hide-sharedaddy .sharedaddy.sd-sharing-enabled,
+.single-resource .content-area .hide-sharedaddy .sharedaddy {
+	display: none !important;
+}
+
+/* hiding social icons styles start here */
+
+
+/* buttons code we can remove start here */
+
+i.fa-arrow-left {
+	margin: 0 0.4rem 0 0;
+	transition: transform 0.3s ease;
+}
+
+i.fa-arrow-right {
+	margin: 0 0 0 0.5rem;
+	transition: transform 0.3s ease;
+}
+
+/* we are not using this category base styles we can remove start here */
+
+a {
+	text-decoration: none;
+}
+
+.black-pearl {
+	color: #21272A;
+}
+
+.black-charcoal {
+	color: #212121;
+}
+
+.pale-blue-bg {
+	background-color: #9DCDE7;
+}
+
+.peach-puff-bg {
+	background-color: #F4E3C7;
+}
+
+.peach-puff-bg .add-motif::before {
+	background-color: #E8C58C;
+	opacity: 1;
+}
+
+.soft-mauve-bg {
+	background-color: #E6D6DF;
+}
+
+.soft-mauve-bg .add-motif::before {
+	background-color: #C5A5B9;
+	opacity: 1;
+}
+
+.mint-green-bg {
+	background-color: #BADCBB;
+}
+
+.concrete-bg {
+	background-color: var(--theme-clr);
+/* background: linear-gradient(184.34deg, rgba(112, 19, 68, 0) 15.58%, var(--theme-clr) 16.51%); */
+	color: #212121;
+}
+.getin-touch-section{
+	color:#ffffff;
+
+}
+/* we are not using this category base styles we can remove end here */
+
+
+.apum-animation {
+	opacity: 1;
+}
+
+.wpcf7 .screen-reader-response {
+    display: none !important;
+    visibility: hidden;
+    height: 0;
+    overflow: hidden;
+}
+
+
+.announcement-slider .slick-slide {
+  display: block !important;
+}
