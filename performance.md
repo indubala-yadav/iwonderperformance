@@ -50,3 +50,18 @@
 
 ---
 *All steps assume Jetpack Boost is installed and active. Use a child theme for any theme file modifications to prevent loss on updates.*
+
+
+5. Render-blocking requests: Est savings of 530 ms
+
+Why is this important?
+
+Your site has 8 render-blocking requests that are delaying the initial display of the page, with an estimated savings of 530 ms. The biggest offenders are four resources from your web-magazine-theme — bootstrap.min.css (33 KB, blocking for 270 ms), layout.css (25 KB, blocking for 270 ms), and fontawesome/css/all.min.css (23 KB, blocking for 270 ms) — alongside the WordPress core jquery.min.js (31 KB, blocking for 163 ms). When a browser encounters these CSS and JavaScript files in the <head>, it stops rendering the page entirely until each file is fully downloaded and parsed. This directly delays LCP (Largest Contentful Paint) and FCP (First Contentful Paint), making the page feel slow before any visible content appears.
+
+How to fix this?
+
+Install and activate Jetpack Boost — Optimize CSS Loading: Install Jetpack Boost, then in your dashboard navigate to Jetpack → Boost and enable Optimize CSS Loading. This generates Critical CSS for your page's above-the-fold content and moves it inline, so the browser can render visible content immediately without waiting for the full theme stylesheets (bootstrap.min.css, layout.css, fontawesome/css/all.min.css, style.css, button.css, slick-theme.css) to download — addressing the 270 ms and 163 ms blocking durations from those files.
+
+Enable Defer Non-Essential JavaScript in Jetpack Boost: In Jetpack → Boost, toggle on Defer Non-Essential JavaScript. This moves non-critical scripts out of the critical rendering path so the browser renders your page content first. This directly targets the render-blocking jquery.min.js (163 ms delay, 31 KB) and jquery-migrate.min.js (56 ms delay, 5 KB). Note: if any site functionality breaks after enabling this, Jetpack Boost allows you to exclude specific scripts from deferral under the same settings panel.
+
+Enable Concatenate CSS and Concatenate JS in Jetpack Boost: In Jetpack → Boost, also toggle on Concatenate CSS and Concatenate JS. These settings combine the multiple separate theme CSS and JS files into single requests, reducing the total number of render-blocking network requests from 8 down to just a few — compounding the savings from the CSS and JS optimisations above.
