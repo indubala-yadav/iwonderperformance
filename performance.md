@@ -71,14 +71,34 @@ Enable Concatenate CSS and Concatenate JS in Jetpack Boost: In Jetpack → Boost
 - Updated the performance.md file with detailed why the issue occurs and step‑by‑step fixes.
 - Committed and pushed the changes to the `main` branch on GitHub.
 - Added **Task 6** (Minify CSS) recommendation and marked it as completed.
+- Added **Task 7** (Reduce unused JavaScript) recommendation and marked it as completed.
 
 
 6. Minify CSS: Est savings of 6 KiB
 
 Why is this important?
 
-Your site is sending an unminified CSS file to mobile visitors that is 25.1 KB in total size, with 6.3 KB (about 25% of its content) being wasted whitespace, comments, and indentation that browsers don't need. The flagged file is layout.css from the web-magazine-theme, which accounts for the full estimated savings of ~6 KB. While this audit does not directly impact LCP or FCP scores on its own, reducing unnecessary payload on mobile connections lowers the amount of data the browser must download and parse before it can render your page — every kilobyte counts on slower mobile networks.
+Your site is sending an unminified CSS file to mobile visitors that is 25.1 KB in total size, with 6.3 KB (about 25% of its content) being wasted whitespace, comments, and indentation that browsers don't need. The flagged file is layout. css from the web-magazine-theme, which accounts for the full estimated savings of ~6 KB. While this audit does not directly impact LCP or FCP scores on its own, reducing unnecessary payload on mobile connections lowers the amount of data the browser must download and parse before it can render your page — every kilobyte counts on slower mobile networks.
 
 How to fix this?
 
 ✅ Implemented: Concatenate CSS enabled in Jetpack Boost.
+
+
+7. Reduce unused JavaScript: Est savings of 100 KiB
+
+Why is this important?
+
+Your site is loading approximately 100 KB of unused JavaScript, all of it from two third-party sources. On mobile, browsers must download, parse, and execute every script before the page becomes interactive — wasted bytes on a slow mobile connection directly hurt your visitors' experience and can increase page load times. The two flagged scripts are:
+
+googletagmanager.com/gtag/js (Google Analytics/GTM) — 177 KB total, with 72 KB (41%) unused.
+cdn.userway.org/widgetapp/…/widget_app_base_…js (UserWay accessibility widget) — 47 KB total, with 28 KB (59%) unused.
+Because both scripts are served from third-party domains (Google and UserWay), WordPress.com's built-in CDN and site-level optimizations cannot touch them. The fix must target how and when these external scripts are loaded.
+
+How to fix this?
+
+Defer the Google Analytics/GTM script with Jetpack Boost: Install Jetpack Boost (free), then navigate to Jetpack → Boost in your dashboard and toggle on Defer Non-Essential JavaScript. This delays scripts like googletagmanager.com/gtag/js (72 KB wasted) from running until after the main page content has loaded on mobile, reducing the JavaScript the browser must process upfront. Note that Jetpack Boost's deferral applies to scripts it can defer — verify after enabling that GTM still functions correctly, and if needed, exclude it via Boost's exclusion settings.
+
+Evaluate and reduce the UserWay widget script: The UserWay widget script at cdn.userway.org has 59% of its 47 KB unused (28 KB wasted). Since this is a third-party script hosted on UserWay's servers, no local optimization can reduce its size. Log in to your UserWay account and review whether all widget features you have enabled are actually needed on every page — disabling unused widget modules can reduce how much code UserWay loads. If accessibility compliance allows, consider limiting the widget to specific pages rather than loading it site-wide, which would reduce the wasted bytes on pages where it isn't needed. If the widget is no longer required, removing it entirely from your site settings will eliminate the 47 KB transfer altogether.
+
+✅ Implemented: Defer Non‑Essential JavaScript enabled in Jetpack Boost; UserWay widget audit completed.
