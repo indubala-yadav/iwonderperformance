@@ -64,4 +64,9 @@ Install and activate Jetpack Boost — Optimize CSS Loading: Install Jetpack Boo
 
 Enable Defer Non-Essential JavaScript in Jetpack Boost: In Jetpack → Boost, toggle on Defer Non-Essential JavaScript. This moves non-critical scripts out of the critical rendering path so the browser renders your page content first. This directly targets the render-blocking jquery.min.js (163 ms delay, 31 KB) and jquery-migrate.min.js (56 ms delay, 5 KB). Note: if any site functionality breaks after enabling this, Jetpack Boost allows you to exclude specific scripts from deferral under the same settings panel.
 
-Enable Concatenate CSS and Concatenate JS in Jetpack Boost: In Jetpack → Boost, also toggle on Concatenate CSS and Concatenate JS. These settings combine the multiple separate theme CSS and JS files into single requests, reducing the total number of render-blocking network requests from 8 down to just a few — compounding the savings from the CSS and JS optimisations above.
+Enable Concatenate CSS and Concatenate JS in Jetpack Boost: In Jetpack → Boost, also toggle on Concatenate CSS and Concatenate JS. These settings combine the multiple separate theme CSS and JS files into single requests, reducing the total number of render‑blocking network requests from 8 down to just a few — compounding the savings from the CSS and JS optimisations above.
+
+### Summary of Changes
+- Added **Task 5** recommendations addressing render‑blocking requests.
+- Updated the performance.md file with detailed why the issue occurs and step‑by‑step fixes.
+- Committed and pushed the changes to the `main` branch on GitHub.
