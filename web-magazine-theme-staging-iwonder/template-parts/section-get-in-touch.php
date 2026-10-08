@@ -73,6 +73,7 @@
         <img src="/wp-content/uploads/2026/04/get-in-touch-stay-informed.png"
              alt=""
              class="img-fluid d-block mb-4"
+             width="332" height="187"
              >
 
         <h3 class="fs-20 fw-bold text-uppercase let-spac-1 mb-3 text-center"> <?php echo esc_html(t('iw_stay_informed')); ?></h3>
@@ -96,6 +97,7 @@
         <img src="/wp-content/uploads/2026/04/get-in-submit-a-pich.png"
              alt="Submit an Article"
              class="img-fluid d-block mb-4"
+             width="332" height="187"
              >
         <h3 class="fs-20 fw-bold text-uppercase let-spac-1 mb-3 text-center"><?php echo esc_html(t('iw_Submit_a_Pitch_or_Draft')); ?></h3>
 

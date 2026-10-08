@@ -1,8 +1,8 @@
 <footer class="footer text-white footerbar-img left pb-0 testfooter<?= is_page('home') ? 'mt-5' : ''; ?>">
 
 	<div class="winmils-container d-flex justify-content-between position-absolute px-4 w-100">
-		<img src="/wp-content/uploads/2025/12/windmill2.svg" class="windmils-left" alt="windmils">
-		<img src="/wp-content/uploads/2025/12/windmill3.svg" class="windmils-img" alt="">
+		<img src="/wp-content/uploads/2025/12/windmill2.svg" class="windmils-left" alt="windmils" width="80" height="84">
+		<img src="/wp-content/uploads/2025/12/windmill3.svg" class="windmils-img" alt="" width="122" height="84">
 	</div>
 	
 	<svg 

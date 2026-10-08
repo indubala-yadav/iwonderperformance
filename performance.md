@@ -138,3 +138,35 @@ How to fix this?
 Install and activate Jetpack Boost: Install the free Jetpack Boost plugin, then in your site's dashboard navigate to Jetpack → Boost, find the Concatenate JS toggle, and enable it. This feature groups and minifies JavaScript files — including your theme's header.js (currently 5.4 KB with ~2.1 KB wasted) — reducing payload size and the number of HTTP requests without any manual code editing.
 
 ✅ Implemented: Concatenate JS enabled in Jetpack Boost; JavaScript minification completed.
+
+
+## 9) Image Elements Do Not Have Explicit `width` and `height`
+
+### Why is this important?
+
+When `<img>` elements are rendered without explicit `width` and `height` attributes, the browser has no way to know how much space to reserve for them before they finish downloading. Once the images load, they push surrounding content around — causing unexpected layout shifts that directly hurt your site's **Cumulative Layout Shift (CLS)** score. A good CLS score is 0.1 or lower; any shift above that threshold signals a poor visual stability experience, can cause accidental clicks, and is a negative signal for search engine rankings.
+
+The audit flagged **4 images** missing explicit dimensions:
+
+| Image | Rendered Size |
+|-------|--------------|
+| `get-in-touch-stay-informed.png` | 332 × 187 px |
+| `get-in-submit-a-pich.png` | 332 × 187 px |
+| `windmill3.svg` | 122 × 84 px |
+| `windmill2.svg` | 80 × 84 px |
+
+### How to fix this?
+
+1. **Add `width` and `height` attributes directly in the theme template files:** Edit the source `<img>` tags in the theme PHP templates and add the matching dimensions inline, e.g.:
+```html
+<img src="...get-in-touch-stay-informed.png" width="332" height="187" class="img-fluid d-block mb-4" alt="">
+<img src="...windmill3.svg" width="122" height="84" class="windmils-img" alt="">
+<img src="...windmill2.svg" width="80" height="84" class="windmils-left" alt="windmils">
+```
+This tells the browser to pre-allocate the correct space for each image before it loads, preventing layout shifts entirely.
+
+2. **Files edited:**
+   - `footer.php` — Added `width="80" height="84"` to `windmill2.svg` and `width="122" height="84"` to `windmill3.svg`.
+   - `template-parts/section-get-in-touch.php` — Added `width="332" height="187"` to both `get-in-touch-stay-informed.png` and `get-in-submit-a-pich.png`.
+
+✅ Implemented: Added explicit `width` and `height` attributes to all 4 flagged `<img>` tags in `footer.php` and `template-parts/section-get-in-touch.php`; browser can now pre-allocate correct layout space, eliminating CLS from these images.
