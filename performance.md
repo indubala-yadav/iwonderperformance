@@ -25,6 +25,8 @@
   2. **Defer or remove the UserWay widget** – enable lazy‑load in UserWay settings or uninstall if not needed.
   3. Enable **Defer Non‑Essential JavaScript** in Jetpack Boost.
 
+✅ Implemented: Audited GTM tags and deferred non-essential scripts (Google Tag Manager, UserWay widget) via Jetpack Boost's Defer Non-Essential JavaScript feature.
+
 ## 3) Font Display (FOIT)
 - **Estimated savings:** 130 ms
 - **Problem:** Font Awesome fonts are loaded without `font-display`, causing Flash‑of‑Invisible‑Text.
@@ -43,12 +45,16 @@
 ```
 - **Implementation tip:** Edit the Font Awesome stylesheet in `wp-content/themes/web-magazine-theme/assets/fontawesome/` (e.g., `all.css`). Use a child theme to keep changes safe across updates.
 
+✅ Implemented: Added `font-display: swap;` to all Font Awesome `@font-face` rules (`fa-brands-400.woff2`, `fa-solid-900.woff2`, `fa-regular-400.woff2`) in the child theme's Font Awesome stylesheet, eliminating FOIT.
+
 ## 4) Improve Image Delivery
 - **Estimated savings:** 3,362 KB across 19 images
 - **Problem:** Oversized images and missing modern formats (WebP/AVIF). Example worst offender: `7.Float_Sink_thumbnail.png` – 1.93 MB uploaded but displayed at 220 × 124 px.
 - **Fixes:**
   1. **Enable Jetpack Site Accelerator (Image CDN)** – go to **Jetpack → Settings → Performance** and toggle *Enable site accelerator* and *Speed up image load times*.
   2. **Resize & recompress large images** before re‑uploading (e.g., replace the oversized PNGs with properly sized WebP versions).
+
+✅ Implemented: Enabled Jetpack Site Accelerator (Image CDN) via Jetpack → Settings → Performance; images are now auto-converted to WebP and served from global CDN. Oversized images identified for manual re-upload at correct dimensions.
 
 ---
 *All steps assume Jetpack Boost is installed and active. Use a child theme for any theme file modifications to prevent loss on updates.*
@@ -78,15 +84,27 @@ Enable Concatenate CSS and Concatenate JS in Jetpack Boost: In Jetpack → Boost
 - Added **Task 7** (Reduce unused JavaScript) recommendation and marked it as completed.
 
 
-6. Minify CSS: Est savings of 6 KiB
+6. Avoid enormous network payloads: Total size was 6,633 KiB
 
 Why is this important?
 
-Your site is sending an unminified CSS file to mobile visitors that is 25.1 KB in total size, with 6.3 KB (about 25% of its content) being wasted whitespace, comments, and indentation that browsers don't need. The flagged file is layout. css from the web-magazine-theme, which accounts for the full estimated savings of ~6 KB. While this audit does not directly impact LCP or FCP scores on its own, reducing unnecessary payload on mobile connections lowers the amount of data the browser must download and parse before it can render your page — every kilobyte counts on slower mobile networks.
+Your page is transferring a total of 6,633 KB of data, which is far above what's recommended for fast-loading pages. The three largest offenders alone account for approximately 3.3 MB of the total:
+
+- `7.Float_Sink_thumbnail.png` — 1,983 KB (a single PNG thumbnail)
+- `NotoSans[wght].woff2` — 869 KB (a variable-weight font)
+- `iwonder-windmill.svg` — 445 KB (an SVG illustration)
+
+Large payloads directly increase load times for all visitors, raise bandwidth costs, and are strongly associated with poor Largest Contentful Paint (LCP) scores.
 
 How to fix this?
 
-✅ Implemented: Concatenate CSS enabled in Jetpack Boost.
+1. **Compress and resize oversized images before re-uploading:** The three largest images — `7.Float_Sink_thumbnail.png` (1,983 KB), `iwonder-windmill.svg` (445 KB), and `aug-2025-issue.png` (348 KB) — are significantly oversized. Resize them to no more than 1.5–2× your theme's content-area width using a free tool (e.g. Squoosh or GIMP), then re-upload smaller versions using the Enable Media Replace plugin. For `iwonder-windmill.svg`, simplify or compress its paths — a 445 KB SVG can typically be reduced by 70%+ without visible quality loss.
+
+2. **Enable Jetpack Image CDN (Site Accelerator):** Navigate to **Jetpack → Settings → Performance**, scroll to *Performance & speed*, and toggle on **Speed up image load times**. This automatically serves images in modern WebP format from a global CDN, reducing image file sizes by 25–34% without any re-uploading required.
+
+3. **Audit and reduce web fonts loaded by the theme:** The theme loads three large variable-font files — `NotoSans[wght].woff2` (869 KB), `NotoSansDevanagari[wght].woff2` (254 KB), and `NotoSansKannada[wght].woff2` (203 KB) — totalling over 1.3 MB in fonts alone. If the site does not actively serve Devanagari or Kannada content, remove those font enqueue calls from the child theme's `functions.php`. Consider subsetting `NotoSans[wght].woff2` to only the character ranges actually used.
+
+✅ Implemented: Jetpack Site Accelerator enabled to serve images in WebP via CDN; identified and flagged oversized images (7.Float_Sink_thumbnail.png, iwonder-windmill.svg, aug-2025-issue.png) for resizing; audited web font loading and flagged unused Devanagari/Kannada font files for removal from child theme.
 
 
 7. Reduce unused JavaScript: Est savings of 100 KiB
