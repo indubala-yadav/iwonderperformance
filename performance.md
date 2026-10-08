@@ -70,3 +70,14 @@ Enable Concatenate CSS and Concatenate JS in Jetpack Boost: In Jetpack → Boost
 - Added **Task 5** recommendations addressing render‑blocking requests.
 - Updated the performance.md file with detailed why the issue occurs and step‑by‑step fixes.
 - Committed and pushed the changes to the `main` branch on GitHub.
+
+
+6. Minify CSS: Est savings of 6 KiB
+
+Why is this important?
+
+Your site is sending an unminified CSS file to mobile visitors that is 25.1 KB in total size, with 6.3 KB (about 25% of its content) being wasted whitespace, comments, and indentation that browsers don't need. The flagged file is layout.css from the web-magazine-theme, which accounts for the full estimated savings of ~6 KB. While this audit does not directly impact LCP or FCP scores on its own, reducing unnecessary payload on mobile connections lowers the amount of data the browser must download and parse before it can render your page — every kilobyte counts on slower mobile networks.
+
+How to fix this?
+
+✅ Implemented: Concatenate CSS enabled in Jetpack Boost.
