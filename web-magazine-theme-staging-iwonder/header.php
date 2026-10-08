@@ -12,7 +12,13 @@
 
     <!-- <meta name="description" content="<?php echo esc_attr( get_bloginfo('description') ); ?>"> -->
 <meta name="theme-color" content="#fdc37c">
-<!-- UserWay Accessibility Widget — third-party script (cdn.userway.org), cache TTL controlled by UserWay (1 hr). Loaded with defer to minimise render-blocking impact. -->
+<!-- UserWay Accessibility Widget — third-party script (cdn.userway.org).
+     Known issues (cannot be fixed server-side — controlled entirely by UserWay's CDN):
+     - Cache TTL: only 1 hour (widget.js) — repeat visitors re-download unnecessarily.
+     - Legacy JavaScript: widget_app_base_*.js ships ~10.6 KB of unnecessary polyfills
+       (Array.prototype.find, Math.imul) that are natively supported by all modern browsers.
+     Mitigation: script loaded with `defer` to avoid render-blocking.
+     Recommended action: contact UserWay to request a modern ES6+ bundle, or remove widget if not needed. -->
 <script src="https://cdn.userway.org/widget.js" data-account="KMbPyNqLt6" defer></script>
  
     <?php wp_head(); ?>

@@ -199,3 +199,28 @@ Efficient browser cache lifetimes allow returning visitors to reuse previously d
    - `header.php` — Added clear comments to both third-party script blocks documenting the cache TTL limitation and confirming `defer`/`async` loading strategies are in place.
 
 ✅ Implemented: Confirmed `defer` on UserWay `widget.js` and `async` on Microsoft Clarity in `header.php`; added inline comments documenting cache TTL limitations for both third-party scripts. Cache headers cannot be changed server-side as all three resources are served from external domains (cdn.userway.org, scripts.clarity.ms).
+
+
+## 11) Legacy JavaScript
+- **Estimated savings:** ~11 KiB
+
+### Why is this important?
+
+The audit flagged **Legacy JavaScript** with estimated savings of approximately 10.6 KB. The entire savings come from a single third-party script loaded from the UserWay CDN:
+
+| Script | Wasted KB | Reason |
+|--------|-----------|--------|
+| `widget_app_base_1790678002737.js` (cdn.userway.org) | ~10.6 KB | Ships unnecessary polyfills (`Array.prototype.find`, `Math.imul`) already natively supported by all modern browsers |
+
+> **Important:** This script is served from `cdn.userway.org` — a **third-party CDN entirely outside your control**. It cannot be optimized, minified, or modified directly. WordPress.com's built-in CDN and Jetpack Boost optimizations do not apply to third-party hosted scripts. The fix must come from UserWay or by removing the widget.
+
+### How to fix this?
+
+1. **Contact UserWay to request a modern (ES6+) build:** Reach out to UserWay support and request that their widget script be updated to ship a modern ES6+ bundle without legacy polyfills such as `Array.prototype.find` and `Math.imul`. These APIs are natively supported by all modern browsers and the polyfills add ~10.6 KB of unnecessary overhead. Reference the specific file path (`widget_app_base_1790678002737.js`) to help their team identify the exact bundle.
+
+2. **Remove the UserWay widget if not essential:** If accessibility compliance does not require the widget, removing the `<script>` tag for `cdn.userway.org/widget.js` from `header.php` eliminates this 10.6 KB of legacy JavaScript entirely.
+
+3. **Files updated:**
+   - `header.php` — Updated the UserWay comment block to document the legacy JavaScript polyfill issue alongside the cache TTL limitation, and confirm `defer` loading is in place as a mitigation.
+
+✅ Implemented: Documented legacy JavaScript polyfill issue (`Array.prototype.find`, `Math.imul`) in `header.php` comment block; confirmed `defer` loading as mitigation; recommended contacting UserWay for an ES6+ bundle or removing widget. No direct fix possible as `widget_app_base_*.js` is served from third-party CDN (cdn.userway.org).
