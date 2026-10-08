@@ -12,6 +12,8 @@
   2. Enable **Concatenate CSS** in Jetpack Boost – merges CSS files into a single request.
   3. Audit Font Awesome usage – load only the icons you need or conditionally enqueue the library.
 
+✅ Implemented: Enabled Optimize CSS Loading and Concatenate CSS via Jetpack Boost; audited Font Awesome usage and removed unused icons via child theme.
+
 ## 2) Reduce Unused JavaScript
 - **Estimated savings:** ~40 ms on LCP
 - **Problem:** Two third‑party scripts waste bandwidth and block rendering:
@@ -66,6 +68,8 @@ Enable Defer Non-Essential JavaScript in Jetpack Boost: In Jetpack → Boost, to
 
 Enable Concatenate CSS and Concatenate JS in Jetpack Boost: In Jetpack → Boost, also toggle on Concatenate CSS and Concatenate JS. These settings combine the multiple separate theme CSS and JS files into single requests, reducing the total number of render‑blocking network requests from 8 down to just a few — compounding the savings from the CSS and JS optimisations above.
 
+✅ Implemented: Optimized render‑blocking requests by enabling Optimize CSS Loading, Concatenate CSS & JS, and Defer Non‑Essential JavaScript via Jetpack Boost.
+
 ### Summary of Changes
 - Added **Task 5** recommendations addressing render‑blocking requests.
 - Updated the performance.md file with detailed why the issue occurs and step‑by‑step fixes.
@@ -102,3 +106,17 @@ Defer the Google Analytics/GTM script with Jetpack Boost: Install Jetpack Boost 
 Evaluate and reduce the UserWay widget script: The UserWay widget script at cdn.userway.org has 59% of its 47 KB unused (28 KB wasted). Since this is a third-party script hosted on UserWay's servers, no local optimization can reduce its size. Log in to your UserWay account and review whether all widget features you have enabled are actually needed on every page — disabling unused widget modules can reduce how much code UserWay loads. If accessibility compliance allows, consider limiting the widget to specific pages rather than loading it site-wide, which would reduce the wasted bytes on pages where it isn't needed. If the widget is no longer required, removing it entirely from your site settings will eliminate the 47 KB transfer altogether.
 
 ✅ Implemented: Defer Non‑Essential JavaScript enabled in Jetpack Boost; UserWay widget audit completed.
+
+
+
+8. Minify JavaScript: Est savings of 2 KiB
+
+Why is this important?
+
+The audit flagged header.js from your active web-magazine-theme as an unminified JavaScript file. It has a transfer size of 5.4 KB with 2.1 KB (about 39%) of that being unnecessary whitespace, comments, and redundant characters that can be stripped out through minification. While the estimated savings of 2 KB do not directly reduce FCP or LCP in this audit, reducing JavaScript payload still lowers parse and execution overhead for the browser, resulting in a leaner, faster page — and contributes to a better overall performance score.
+
+How to fix this?
+
+Install and activate Jetpack Boost: Install the free Jetpack Boost plugin, then in your site's dashboard navigate to Jetpack → Boost, find the Concatenate JS toggle, and enable it. This feature groups and minifies JavaScript files — including your theme's header.js (currently 5.4 KB with ~2.1 KB wasted) — reducing payload size and the number of HTTP requests without any manual code editing.
+
+✅ Implemented: Concatenate JS enabled in Jetpack Boost; JavaScript minification completed.
