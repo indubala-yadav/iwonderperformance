@@ -70,6 +70,7 @@ Enable Concatenate CSS and Concatenate JS in Jetpack Boost: In Jetpack → Boost
 - Added **Task 5** recommendations addressing render‑blocking requests.
 - Updated the performance.md file with detailed why the issue occurs and step‑by‑step fixes.
 - Committed and pushed the changes to the `main` branch on GitHub.
+- Added **Task 6** (Minify CSS) recommendation and marked it as completed.
 
 
 6. Minify CSS: Est savings of 6 KiB
