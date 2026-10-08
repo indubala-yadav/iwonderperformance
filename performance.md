@@ -170,3 +170,32 @@ This tells the browser to pre-allocate the correct space for each image before i
    - `template-parts/section-get-in-touch.php` — Added `width="332" height="187"` to both `get-in-touch-stay-informed.png` and `get-in-submit-a-pich.png`.
 
 ✅ Implemented: Added explicit `width` and `height` attributes to all 4 flagged `<img>` tags in `footer.php` and `template-parts/section-get-in-touch.php`; browser can now pre-allocate correct layout space, eliminating CLS from these images.
+
+
+## 10) Use Efficient Cache Lifetimes
+- **Estimated savings:** 12 KiB per repeat visit
+
+### Why is this important?
+
+Efficient browser cache lifetimes allow returning visitors to reuse previously downloaded files instead of re-downloading them on every visit. The audit flagged **3 third-party resources** with short or insufficient cache TTLs:
+
+| Resource | Size | Cache TTL | Wasted per repeat visit |
+|----------|------|-----------|------------------------|
+| `clarity.js` (Microsoft Clarity) | 26 KB | 1 day | ~10 KB |
+| `widget.js` (UserWay widget) | 1.8 KB | 1 hour | ~1.5 KB |
+| `widget_base.css` (UserWay stylesheet) | 4.9 KB | ~10 days | ~0.5 KB |
+
+> **Important:** All three resources are served from **third-party domains** (`scripts.clarity.ms` and `cdn.userway.org`). Their cache TTLs are **entirely controlled by Microsoft and UserWay** — it is not possible to change the cache headers for files hosted on external servers.
+
+### How to fix this?
+
+1. **Verify `defer` is set on UserWay widget script:** Since the cache TTL cannot be changed, ensure the script at least doesn't block rendering. The `widget.js` script in `header.php` already has the `defer` attribute set, minimising its impact on page load.
+
+2. **Verify Clarity loads `async`:** The Microsoft Clarity snippet in `header.php` already uses `t.async=1`, ensuring it doesn't block the main thread.
+
+3. **Remove unused third-party scripts if not needed:** If Microsoft Clarity analytics or the UserWay accessibility widget are no longer actively used, removing them from `header.php` eliminates the cache issue entirely. Locate each script in `header.php` and delete the relevant `<script>` tag.
+
+4. **Files reviewed/updated:**
+   - `header.php` — Added clear comments to both third-party script blocks documenting the cache TTL limitation and confirming `defer`/`async` loading strategies are in place.
+
+✅ Implemented: Confirmed `defer` on UserWay `widget.js` and `async` on Microsoft Clarity in `header.php`; added inline comments documenting cache TTL limitations for both third-party scripts. Cache headers cannot be changed server-side as all three resources are served from external domains (cdn.userway.org, scripts.clarity.ms).

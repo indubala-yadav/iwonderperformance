@@ -12,10 +12,12 @@
 
     <!-- <meta name="description" content="<?php echo esc_attr( get_bloginfo('description') ); ?>"> -->
 <meta name="theme-color" content="#fdc37c">
+<!-- UserWay Accessibility Widget — third-party script (cdn.userway.org), cache TTL controlled by UserWay (1 hr). Loaded with defer to minimise render-blocking impact. -->
 <script src="https://cdn.userway.org/widget.js" data-account="KMbPyNqLt6" defer></script>
  
     <?php wp_head(); ?>
 
+<!-- Microsoft Clarity analytics — third-party script (scripts.clarity.ms), cache TTL controlled by Microsoft (1 day). Loaded async; no server-side cache control possible. -->
 <script type="text/javascript">
     (function(c,l,a,r,i,t,y){
         c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
